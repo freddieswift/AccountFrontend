@@ -1,0 +1,19 @@
+.yearCard {
+  display: block;
+  background-color: #126bd1;
+  padding: 1rem;
+  border-radius: 2rem;
+  text-align: center;
+  margin: 1rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.yearCard:hover {
+  background-color: #283f5a;
+  cursor: pointer;
+}
+
+.selectedYear {
+  background-color: #283f5a;
+}

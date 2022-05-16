@@ -35,6 +35,9 @@ const LoginForm = () => {
                     return res.json()
                 })
                 .then(data => {
+                    if (data.error) {
+                        alert(data.error)
+                    }
                     console.log(data)
                 })
         }
@@ -60,10 +63,6 @@ const LoginForm = () => {
                     console.log(data)
                 })
         }
-
-
-
-
     }
 
     return (

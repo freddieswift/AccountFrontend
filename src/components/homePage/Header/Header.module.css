@@ -1,0 +1,10 @@
+.header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(190, 190, 190);
+}
+
+.companyName {
+  font-size: 2.8rem;
+}
