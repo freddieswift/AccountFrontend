@@ -1,0 +1,8 @@
+.tabSelection {
+  background-color: rgb(190, 190, 190);
+  padding-bottom: 1rem;
+}
+
+.tabSelection > * {
+  margin: 0 0.4rem;
+}
