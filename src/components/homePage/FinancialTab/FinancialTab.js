@@ -25,6 +25,33 @@ const FinancialTab = (props) => {
             })
     }
 
+    const updateInfoHandler = (name, value) => {
+        setSelectedYearInfo({
+            ...selectedYearInfo,
+            [name]: value
+        })
+    }
+
+    const saveHandler = () => {
+        const { totalCOS, totalOH, ...selectedYearInfoToUpdate } = selectedYearInfo
+        fetch(`http://127.0.0.1:3000/year/${selectedYearInfo._id}`, {
+            method: 'PATCH',
+            withCredentials: true,
+            headers: {
+                'Authorization': process.env.REACT_APP_TOKEN,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(selectedYearInfoToUpdate)
+        })
+            .then(response => {
+                return response.json()
+            })
+            .then(yearInfo => {
+                setSelectedYearInfo(yearInfo)
+                props.getListOfYears()
+            })
+    }
+
     return (
         <div className={classes.financialTab}>
             <YearList
@@ -50,6 +77,10 @@ const FinancialTab = (props) => {
             {selectedYearInfo &&
                 <YearInfo
                     turnover={selectedYearInfo.turnover}
+                    predictedDozens={selectedYearInfo.predictedDozens}
+                    name={selectedYearInfo.name}
+                    updateInfoHandler={updateInfoHandler}
+                    saveHandler={saveHandler}
                 />
             }
         </div>

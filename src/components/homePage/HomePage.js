@@ -23,6 +23,7 @@ const HomePage = () => {
     }, [])
 
     const getListOfYears = () => {
+        console.log("hello")
         fetch('http://127.0.0.1:3000/year', {
             method: 'GET',
             withCredentials: true,
@@ -71,6 +72,7 @@ const HomePage = () => {
                 <FinancialTab
                     listOfYears={listOfYears}
                     addYearHandler={addYearHandler}
+                    getListOfYears={getListOfYears}
                 />
             }
             {selectedTab === 'socks' && <div>socks</div>}
