@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import classes from './FinancialTab.module.css'
 import YearList from './YearList'
 import YearInfo from './YearInfo'
@@ -6,6 +6,10 @@ import COSOHContainer from './COSOHContainer'
 
 const FinancialTab = (props) => {
     const [selectedYearInfo, setSelectedYearInfo] = useState()
+
+    useEffect(() => {
+        console.log("HEllo")
+    })
 
     const changeSelectedYearHandler = (yearId) => {
         //setSelectedYear(yearId)
@@ -81,6 +85,9 @@ const FinancialTab = (props) => {
                     name={selectedYearInfo.name}
                     updateInfoHandler={updateInfoHandler}
                     saveHandler={saveHandler}
+                    totalCOS={selectedYearInfo.totalCOS}
+                    totalOH={selectedYearInfo.totalOH}
+                    active={selectedYearInfo.active}
                 />
             }
         </div>

@@ -23,7 +23,6 @@ const HomePage = () => {
     }, [])
 
     const getListOfYears = () => {
-        console.log("hello")
         fetch('http://127.0.0.1:3000/year', {
             method: 'GET',
             withCredentials: true,
@@ -36,6 +35,9 @@ const HomePage = () => {
             })
             .then(years => {
                 setListOfYears(years)
+            })
+            .catch(error => {
+                alert("Something went wrong. Please make sure you are connected to the internet...")
             })
     }
 

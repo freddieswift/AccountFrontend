@@ -7,12 +7,14 @@ const YearInfo = (props) => {
     const [turnoverState, setTurnoverState] = useState(props.turnover)
     const [predictedDozensState, setPredictedDozensState] = useState(props.predictedDozens)
     const [nameState, setNameState] = useState(props.name)
+    const [activeState, setActiveState] = useState(props.active)
 
     useEffect(() => {
+        console.log("hi")
         setTurnoverState(props.turnover)
         setPredictedDozensState(props.predictedDozens)
         setNameState(props.name)
-    }, [props.turnover, props.predictedDozens, props.name])
+    }, [props.turnover, props.predictedDozens, props.name, props.active])
 
     const turnoverChangeHandler = (event) => {
         setTurnoverState(event.target.value)
@@ -29,6 +31,10 @@ const YearInfo = (props) => {
         props.updateInfoHandler(event.target.name, event.target.value)
     }
 
+    const activeChangeHandler = (event) => {
+        console.log(event.target.checked)
+    }
+
     const saveHandler = () => {
         props.saveHandler()
     }
@@ -38,6 +44,16 @@ const YearInfo = (props) => {
             <Button onClick={saveHandler}>Save</Button>
             <h2>Year Information</h2>
             <form>
+                <label
+                    className={classes.yearInfoLabel}
+                >
+                    Active
+                </label>
+                <input
+                    type='checkbox'
+                    onChange={activeChangeHandler}
+                    checked={activeState}
+                />
                 <label
                     className={classes.yearInfoLabel}
                 >
@@ -73,6 +89,30 @@ const YearInfo = (props) => {
                     name='predictedDozens'
                     value={predictedDozensState}
                     onChange={predictedDozensChangeHandler}
+                />
+                <label
+                    className={classes.yearInfoLabel}
+                >
+                    Gross Profit
+                </label>
+                <input
+                    className={classes.yearInfoInput}
+                    type='number'
+                    name='grossProfit'
+                    value={turnoverState - props.totalCOS}
+                    readOnly
+                />
+                <label
+                    className={classes.yearInfoLabel}
+                >
+                    Gross Profit
+                </label>
+                <input
+                    className={classes.yearInfoInput}
+                    type='number'
+                    name='grossProfit'
+                    value={turnoverState - props.totalOH - props.totalCOS}
+                    readOnly
                 />
             </form>
         </div>

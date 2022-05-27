@@ -5,6 +5,15 @@
   margin: 1rem;
   border-radius: 1rem;
   display: flex;
+  justify-content: space-between;
+}
+
+.nameAmountContainer > p {
+  display: inline-block;
+}
+
+.nameAmountContainer > *:not(:last-child) {
+  margin-right: 1rem;
 }
 
 .categoryCard > * {
