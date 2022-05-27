@@ -7,10 +7,6 @@ import COSOHContainer from './COSOHContainer'
 const FinancialTab = (props) => {
     const [selectedYearInfo, setSelectedYearInfo] = useState()
 
-    useEffect(() => {
-        console.log("HEllo")
-    })
-
     const changeSelectedYearHandler = (yearId) => {
         //setSelectedYear(yearId)
         //get year by id when a year is selected

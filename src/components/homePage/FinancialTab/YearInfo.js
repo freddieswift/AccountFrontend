@@ -10,7 +10,6 @@ const YearInfo = (props) => {
     const [activeState, setActiveState] = useState(props.active)
 
     useEffect(() => {
-        console.log("hi")
         setTurnoverState(props.turnover)
         setPredictedDozensState(props.predictedDozens)
         setNameState(props.name)
