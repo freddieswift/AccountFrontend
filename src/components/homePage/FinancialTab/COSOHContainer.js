@@ -1,10 +1,7 @@
 import React from 'react'
 import classes from './COSOHContainer.module.css'
 import CategoryCard from './CategoryCard'
-<<<<<<< HEAD
 import Button from '../../utils/Button'
-=======
->>>>>>> 50142d1d66d91d1c526960ce8ef3fb7b62545436
 
 const COSOHContainer = (props) => {
 
@@ -26,18 +23,10 @@ const COSOHContainer = (props) => {
 
     return (
         <div className={classes.container}>
-<<<<<<< HEAD
             <h2>{props.name === 'COS' ? 'Cost of Sale' : 'Overhead Costs'}</h2>
             <p>Total: {`£${props.total}`}</p>
             {categoryCards}
             <Button>Add Category</Button>
-=======
-            <div className={classes.header}>
-                <h2>{props.name === 'COS' ? 'Cost of Sale' : 'Overhead Costs'}</h2>
-                <p>Total: {`£${props.total}`}</p>
-                {categoryCards}
-            </div>
->>>>>>> 50142d1d66d91d1c526960ce8ef3fb7b62545436
         </div>
     )
 }
