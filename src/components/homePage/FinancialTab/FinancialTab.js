@@ -58,6 +58,7 @@ const FinancialTab = (props) => {
 
             if (!response.ok) {
                 if (responseData.error) {
+                    changeSelectedYearHandler(selectedYearInfo._id)
                     throw new Error(responseData.error)
                 }
                 else {
