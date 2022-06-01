@@ -3,7 +3,6 @@ import classes from './YearInfo.module.css'
 import Button from '../../utils/Button'
 
 const YearInfo = (props) => {
-
     const [turnoverState, setTurnoverState] = useState(props.turnover)
     const [predictedDozensState, setPredictedDozensState] = useState(props.predictedDozens)
     const [nameState, setNameState] = useState(props.name)
@@ -13,6 +12,7 @@ const YearInfo = (props) => {
         setTurnoverState(props.turnover)
         setPredictedDozensState(props.predictedDozens)
         setNameState(props.name)
+        setActiveState(props.active)
     }, [props.turnover, props.predictedDozens, props.name, props.active])
 
     const turnoverChangeHandler = (event) => {
@@ -31,7 +31,8 @@ const YearInfo = (props) => {
     }
 
     const activeChangeHandler = (event) => {
-        console.log(event.target.checked)
+        setActiveState(event.target.checked)
+        props.updateInfoHandler('active', event.target.checked)
     }
 
     const saveHandler = () => {
