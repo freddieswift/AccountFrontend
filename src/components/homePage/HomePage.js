@@ -41,24 +41,30 @@ const HomePage = () => {
         }
     }
 
-    const addYearHandler = () => {
-        fetch('http://127.0.0.1:3000/year', {
-            method: 'POST',
-            body: JSON.stringify({
-                "name": "Added Year"
-            }),
-            withCredentials: true,
-            headers: {
-                'Authorization': process.env.REACT_APP_TOKEN,
-                'Content-Type': 'application/json'
+    const addYearHandler = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:3000/year', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "name": "Added Year"
+                }),
+                withCredentials: true,
+                headers: {
+                    'Authorization': process.env.REACT_APP_TOKEN,
+                    'Content-Type': 'application/json'
+                }
+            })
+            console.log(response)
+
+            if (!response.ok) {
+                throw new Error("Something went wrong")
             }
-        })
-            .then(response => {
-                return response.json()
-            })
-            .then(years => {
-                getListOfYears()
-            })
+
+            getListOfYears()
+        }
+        catch (error) {
+            alert(error)
+        }
     }
 
     return (
