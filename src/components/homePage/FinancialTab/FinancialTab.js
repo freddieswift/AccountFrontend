@@ -7,22 +7,30 @@ import COSOHContainer from './COSOHContainer'
 const FinancialTab = (props) => {
     const [selectedYearInfo, setSelectedYearInfo] = useState()
 
-    const changeSelectedYearHandler = (yearId) => {
+    const changeSelectedYearHandler = async (yearId) => {
         //setSelectedYear(yearId)
         //get year by id when a year is selected
-        fetch(`http://127.0.0.1:3000/year/${yearId}`, {
-            method: 'GET',
-            withCredentials: true,
-            headers: {
-                'Authorization': process.env.REACT_APP_TOKEN
+        try {
+            const response = await fetch(`http://127.0.0.1:3000/year/${yearId}`, {
+                method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Authorization': process.env.REACT_APP_TOKEN
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error("Something went wrong...")
             }
-        })
-            .then(response => {
-                return response.json()
-            })
-            .then(yearInfo => {
-                setSelectedYearInfo(yearInfo)
-            })
+
+            const responseData = await response.json()
+
+            setSelectedYearInfo(responseData)
+        }
+        catch (error) {
+            alert(error)
+        }
+
     }
 
     const updateInfoHandler = (name, value) => {
