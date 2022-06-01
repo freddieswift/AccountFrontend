@@ -40,24 +40,37 @@ const FinancialTab = (props) => {
         })
     }
 
-    const saveHandler = () => {
+    const saveHandler = async () => {
         const { totalCOS, totalOH, ...selectedYearInfoToUpdate } = selectedYearInfo
-        fetch(`http://127.0.0.1:3000/year/${selectedYearInfo._id}`, {
-            method: 'PATCH',
-            withCredentials: true,
-            headers: {
-                'Authorization': process.env.REACT_APP_TOKEN,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(selectedYearInfoToUpdate)
-        })
-            .then(response => {
-                return response.json()
+
+        try {
+            const response = await fetch(`http://127.0.0.1:3000/year/${selectedYearInfo._id}`, {
+                method: 'PATCH',
+                withCredentials: true,
+                headers: {
+                    'Authorization': process.env.REACT_APP_TOKEN,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(selectedYearInfoToUpdate)
             })
-            .then(yearInfo => {
-                setSelectedYearInfo(yearInfo)
-                props.getListOfYears()
-            })
+
+            const responseData = await response.json()
+
+            if (!response.ok) {
+                if (responseData.error) {
+                    throw new Error(responseData.error)
+                }
+                else {
+                    throw new Error("Something went wrong.")
+                }
+            }
+
+            setSelectedYearInfo(responseData)
+            props.getListOfYears()
+        }
+        catch (error) {
+            alert(error)
+        }
     }
 
     return (
