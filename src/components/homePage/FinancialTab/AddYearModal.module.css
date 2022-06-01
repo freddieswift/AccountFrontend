@@ -1,0 +1,30 @@
+.addYearContainer {
+  position: fixed;
+  background-color: rgb(155, 153, 153);
+  text-align: center;
+  padding: 2rem;
+  border-radius: 2rem;
+  width: 20%;
+  height: 14rem;
+  top: 30%;
+  left: 40%;
+}
+
+.label {
+  display: block;
+}
+
+.input {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.12rem;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 8rem;
+  margin: 1rem auto;
+}

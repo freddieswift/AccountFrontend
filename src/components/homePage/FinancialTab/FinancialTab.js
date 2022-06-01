@@ -3,9 +3,16 @@ import classes from './FinancialTab.module.css'
 import YearList from './YearList'
 import YearInfo from './YearInfo'
 import COSOHContainer from './COSOHContainer'
+import AddYearModal from './AddYearModal'
 
 const FinancialTab = (props) => {
     const [selectedYearInfo, setSelectedYearInfo] = useState()
+    const [addYearModal, setAddYearModal] = useState(false)
+    const [listOfYears, setListOfYears] = useState([])
+
+    useEffect(() => {
+        getListOfYears()
+    }, [])
 
     const changeSelectedYearHandler = async (yearId) => {
         //setSelectedYear(yearId)
@@ -67,20 +74,74 @@ const FinancialTab = (props) => {
             }
 
             setSelectedYearInfo(responseData)
-            props.getListOfYears()
+            getListOfYears()
+            alert("Save successful")
         }
         catch (error) {
             alert(error)
         }
     }
 
+    const getListOfYears = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:3000/year', {
+                method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Authorization': process.env.REACT_APP_TOKEN
+                }
+            })
+
+            const responseData = await response.json()
+
+            setListOfYears(responseData)
+        }
+        catch (error) {
+            alert("Something went wrong. Please make sure you are connected to the internet...")
+        }
+    }
+
+    const addYearHandler = async (yearName) => {
+        try {
+            const response = await fetch('http://127.0.0.1:3000/year', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "name": yearName
+                }),
+                withCredentials: true,
+                headers: {
+                    'Authorization': process.env.REACT_APP_TOKEN,
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error("Something went wrong")
+            }
+
+            getListOfYears()
+        }
+        catch (error) {
+            alert(error)
+        }
+    }
+
+    const openAddYearModal = () => {
+        setAddYearModal(true)
+    }
+
+    const closeAddYearModal = () => {
+        setAddYearModal(false)
+    }
+
     return (
         <div className={classes.financialTab}>
+            {addYearModal && <AddYearModal closeAddYearModal={closeAddYearModal} addYearHandler={addYearHandler} />}
             <YearList
-                listOfYears={props.listOfYears}
+                listOfYears={listOfYears}
                 changeSelectedYearHandler={changeSelectedYearHandler}
                 selectedYear={selectedYearInfo}
-                addYearHandler={props.addYearHandler}
+                openAddYearModal={openAddYearModal}
             />
             {selectedYearInfo &&
                 <COSOHContainer

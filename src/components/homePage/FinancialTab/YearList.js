@@ -33,7 +33,7 @@ const YearList = (props) => {
     listOfYearsButtons.push(
         <YearCard
             key='AddYear'
-            addYearHandler={props.addYearHandler}
+            openAddYearModal={props.openAddYearModal}
         >
             Add Year
         </YearCard>)

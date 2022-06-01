@@ -6,8 +6,8 @@ const YearCard = (props) => {
         if (props.changeSelectedYearHandler) {
             props.changeSelectedYearHandler(props.id)
         }
-        else if (props.addYearHandler) {
-            props.addYearHandler()
+        else if (props.openAddYearModal) {
+            props.openAddYearModal()
         }
 
     }
