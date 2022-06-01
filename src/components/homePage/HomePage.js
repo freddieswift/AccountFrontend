@@ -22,23 +22,23 @@ const HomePage = () => {
         getListOfYears()
     }, [])
 
-    const getListOfYears = () => {
-        fetch('http://127.0.0.1:3000/year', {
-            method: 'GET',
-            withCredentials: true,
-            headers: {
-                'Authorization': process.env.REACT_APP_TOKEN
-            }
-        })
-            .then(response => {
-                return response.json()
+    const getListOfYears = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:3000/year', {
+                method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Authorization': process.env.REACT_APP_TOKEN
+                }
             })
-            .then(years => {
-                setListOfYears(years)
-            })
-            .catch(error => {
-                alert("Something went wrong. Please make sure you are connected to the internet...")
-            })
+
+            const responseData = await response.json()
+
+            setListOfYears(responseData)
+        }
+        catch (error) {
+            alert("Something went wrong. Please make sure you are connected to the internet...")
+        }
     }
 
     const addYearHandler = () => {
