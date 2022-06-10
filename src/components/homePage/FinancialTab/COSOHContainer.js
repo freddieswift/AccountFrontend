@@ -8,6 +8,10 @@ const COSOHContainer = (props) => {
     // filter props.categories to find categories that relate to name
     // map filtered categories to category cards
 
+    const openAddCategoryModal = () => {
+        props.openAddCategoryModal(props.name)
+    }
+
     const filteredCategories = props.categories.filter(category => {
         return category.categoryType === props.name
     })
@@ -26,7 +30,7 @@ const COSOHContainer = (props) => {
             <h2>{props.name === 'COS' ? 'Cost of Sale' : 'Overhead Costs'}</h2>
             <p>Total: {`£${props.total}`}</p>
             {categoryCards}
-            <Button>Add Category</Button>
+            <Button onClick={openAddCategoryModal}>Add Category</Button>
         </div>
     )
 }

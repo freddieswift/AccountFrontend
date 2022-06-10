@@ -4,10 +4,13 @@ import YearList from './YearList'
 import YearInfo from './YearInfo'
 import COSOHContainer from './COSOHContainer'
 import AddYearModal from './AddYearModal'
+import AddCategoryModal from './AddCategoryModal'
 
 const FinancialTab = (props) => {
     const [selectedYearInfo, setSelectedYearInfo] = useState()
     const [addYearModal, setAddYearModal] = useState(false)
+    const [addCategoryModal, setAddCategoryModal] = useState(false)
+    const [addCategoryModalName, setAddCategoryModalName] = useState('OH')
     const [listOfYears, setListOfYears] = useState([])
 
     useEffect(() => {
@@ -126,6 +129,14 @@ const FinancialTab = (props) => {
         }
     }
 
+    const addCategoryHandler = (name, value, categoryType) => {
+        const category = { name, categoryType, value }
+        const tempSelectedYearInfo = selectedYearInfo
+        tempSelectedYearInfo.categories.push(category)
+        setSelectedYearInfo(tempSelectedYearInfo)
+        saveHandler()
+    }
+
     const openAddYearModal = () => {
         setAddYearModal(true)
     }
@@ -134,9 +145,31 @@ const FinancialTab = (props) => {
         setAddYearModal(false)
     }
 
+    const openAddCategoryModal = (name) => {
+        setAddCategoryModalName(name)
+        setAddCategoryModal(true)
+    }
+
+    const closeAddCategoryModal = () => {
+        setAddCategoryModal(false)
+    }
+
     return (
         <div className={classes.financialTab}>
-            {addYearModal && <AddYearModal closeAddYearModal={closeAddYearModal} addYearHandler={addYearHandler} />}
+            {addYearModal &&
+                <AddYearModal
+                    closeAddYearModal={closeAddYearModal}
+                    addYearHandler={addYearHandler}
+                />
+            }
+            {
+                addCategoryModal &&
+                <AddCategoryModal
+                    closeAddCategoryModal={closeAddCategoryModal}
+                    name={addCategoryModalName}
+                    addCategoryHandler={addCategoryHandler}
+                />
+            }
             <YearList
                 listOfYears={listOfYears}
                 changeSelectedYearHandler={changeSelectedYearHandler}
@@ -148,6 +181,7 @@ const FinancialTab = (props) => {
                     name='COS'
                     total={selectedYearInfo.totalCOS}
                     categories={selectedYearInfo.categories}
+                    openAddCategoryModal={openAddCategoryModal}
                 />
             }
             {selectedYearInfo &&
@@ -155,6 +189,7 @@ const FinancialTab = (props) => {
                     name='OVERHEAD'
                     total={selectedYearInfo.totalOH}
                     categories={selectedYearInfo.categories}
+                    openAddCategoryModal={openAddCategoryModal}
                 />
             }
             {selectedYearInfo &&
